@@ -1,0 +1,13 @@
+Metadata-Version: 1.0
+Name: editmoin
+Version: 1.17
+Summary: Edit Moin pages remotely with your preferred editor
+Home-page: http://labix.org/editmoin
+Author: Gustavo Niemeyer
+Author-email: gustavo@niemeyer.net
+License: GPL
+Description: This program allows you to edit moin (see http://moinmo.in)
+        pages with your preferred editor. It means you can easily edit your
+        pages, without the usual limitations of most web browsers' text areas.
+        
+Platform: UNKNOWN

@@ -1,0 +1,167 @@
+.TH editmoin 1 "February 16, 2008" "Martin Pitt"
+
+.SH NAME
+editmoin \- Edit MoinMoin wiki pages in your favourite editor
+
+.SH SYNOPSIS
+
+.B editmoin 
+http://moinmo.in/WikiSandBox
+
+.B editmoin 
+-t SomeTemplate http://moinmo.in/WikiSandBox
+
+.SH DESCRIPTION
+
+.B editmoin
+allows you to edit Moin wiki pages with your preferred
+editor. It means you can easily edit your pages, without the usual
+limitations of most web browsers' text areas.
+
+Its usage is simple and straightforward. Just provide moin's web page
+url as the first parameter. For example:
+
+.IP
+editmoin http://moinmo.in/WikiSandBox
+
+.PP
+You can also use the -t parameter, to inform a template
+to base this page on. For example:
+
+.IP
+editmoin -t SomeTemplate http://moinmo.in/WikiSandBox
+
+.SH CHANGE SETTINGS
+
+While you're editing a page you'll notice that a few settings are
+available at the top of the page. These settings are preceded by a @
+symbol, and are immediately followed by the page body. These settings
+allow you to inform, for example, if you want subscribing users to be
+notified of your changes, or provide a comment for your change. Their
+functionality is simple, and their meaning, format, and usage should be
+obvious to you.
+
+.SH SELECTING YOUR EDITOR
+
+The default editor is vi. If you want to use any other, just set the
+.B EDITOR 
+environment variable accordingly.
+
+.SH SETTING YOUR USERNAME
+
+For editmoin to be able to authenticate you against the moin site you're
+accessing, it must know your username.  For that, you must edit the file
+.B ~/.moin_users
+and insert
+.B URL ID
+pairs in it. For example:
+
+.IP
+http://moinmo.in YourUserName
+.IP
+http://wiki.ubuntu.com
+.IP
+http://example.com/moin/moin.cgi AnotherUserName
+
+.PP
+If the server needs Basic HTTP Authentication you can use something like:
+
+.IP
+https://user:password@example.com/moin/moin.cgi YourUserName
+
+.PP
+For using shortcuts (see below), and also for better control, defining
+URLs without usernames in that file is valid.
+
+
+.SH SETTING YOUR MOIN ID EXPLICITLY
+
+In remote times, authentication was done in moin using an ID, consisting
+mostly of numbers.  Nowadays moin was improved to work with a more
+traditional username/password scheme.  Even then, if the traditional
+username scheme mentioned above doesn't work for you, IDs may still
+be obtained after authentication, when the moin site sends your browser
+a MOIN_ID or MOIN_SESSION cookie.
+
+Setting moin IDs consists of changing a file named
+.B ~/.moin_ids 
+and inserting
+.B URL ID
+pairs in it. For example:
+
+.IP
+http://moinmo.in 987654321.321.54321
+.IP
+http://wiki.canonical.com
+.IP
+http://example.com/moin/moin.cgi 123456789.123.12345 
+
+.PP
+If the server needs Basic HTTP Authentication you can use something like:
+
+.IP
+https://user:password@example.com/moin/moin.cgi 123456789.123.12345
+
+.PP
+For using shortcuts (see below), and also for better control, defining
+URLs without IDs in that file is valid.
+
+.SH ALIASES
+Besides using shortcuts, it's also possible to define URL aliases in
+a file named 
+.B ~/.moin_aliases\fR.
+This file should contain lines with pairs of "alias translation". For
+instance:
+
+.IP
+script http://moinmo.in/ScriptMarket
+
+.PP
+With this line present, one may execute a command like follows:
+
+.IP
+editmoin script/EditMoin
+
+.PP
+and get the expected result.
+
+Notice that unlike shortcuts, aliases must match 
+.B exactly
+to be considered.  After the alias is translated, the resulting URL is
+also processed for matching shortcuts as specified below.
+
+.SH SHORTCUTS
+
+Instead of using the whole URL, you may use a shortcut, which consists
+of any substring of an URL contained in 
+.B ~/.moin_users
+and/or
+.B ~/.moin_ids\fR,
+followed by a slash and an optional subpath. For instance:
+
+.IP
+editmoin canonical/FrontPage
+
+.SH PROXIES
+
+If you're behind a proxy, set the 
+.B http_proxy
+environment variable, as usual.
+
+.SH BACKUPS
+
+Editing a moin page may take several minutes, or even hours sometimes.
+With this in mind, after you change some page it is saved in a file
+named 
+.B ~/.moin_lastedit
+even before trying to commit it. This gives an extra protection
+against casual problems. Note that this file is overwritten every time
+a page is successfuly changed, so save it somewhere if you want to
+keep it.
+
+.SH AUTHOR
+
+.B editmoin
+was written by Gustavo Niemeyer <gustavo@niemeyer.net>. This manpage
+was written by Martin Pitt <mpitt@debian.org> for the Debian GNU/Linux
+System (but may be used by others), based on editmoin's home page.
