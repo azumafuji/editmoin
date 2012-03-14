@@ -1,1 +1,1 @@
-include MANIFEST.in editmoin editmoin.1 moin1_5.vim moin1_6.vim COPYING debian/*
+include MANIFEST.in editmoin editmoin.1 moin1_5.vim moin1_6.vim COPYING PKG-INFO

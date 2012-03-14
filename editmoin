@@ -42,7 +42,7 @@ except ImportError:
 
 
 DESCRIPTION = "Retrieve and launch and save a moinmoin wiki page in your favorite editor" 
-USAGE = "Usage: editmoin [-t <template page>] <moin page URL>\n"
+USAGE = "Usage: editmoin [-t <template page>] [-c] <moin page URL>\n"
 
 IDFILENAME = os.path.expanduser("~/.moin_ids")
 ALIASFILENAME = os.path.expanduser("~/.moin_aliases")
@@ -489,13 +489,16 @@ def edit(url, template=None, trivial=None, editfile_func=editfile):
 def main():
     template = None
     trivial = None
-    parser = OptionParser(description=DESCRIPTION)
+    parser = OptionParser(description=DESCRIPTION, usage=USAGE, version='%s %s' % ('editmoin' ,__version__))
     parser.add_option('-t', '--template', action='store', type="string",
             dest="template", help='a template page to use for the editing')
     parser.add_option('-c', '--trivial-change', action="store_true",
             dest="trivial", help="default to trivial change.")
     (options, args) = parser.parse_args()
-   
+  
+    if len(args) == 0:
+        parser.error("You must supply a URL to a moinmoin wiki page that you want to edit")
+
     try:
         edit(args[0], template=options.template, trivial=options.trivial)
     except (IOError, OSError, Error), e:
